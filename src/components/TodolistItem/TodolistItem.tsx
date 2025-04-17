@@ -3,10 +3,11 @@ import {TaskType} from "../../App.tsx";
 
 type Props = {
   tasks: TaskType
+  changeFilterValue: () => void
 }
 
 export const TodolistItem = (props: Props) => {
-    const {tasks} = props
+    const {tasks, changeFilterValue} = props
   return (
         <div>
             <div>

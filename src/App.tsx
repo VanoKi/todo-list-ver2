@@ -9,12 +9,16 @@ export type TaskType = {
   isDone: boolean
 }
 
+export type FiltredValues = 'all'|'active'|'completed'
+
 function App() {
-  const [tasks, setTasks] = useState(<TaskType>[
+  const [tasks, setTasks] = useState<TaskType[]>([
       { id: v4(), title: 'Сходить в магазин', isDone: true },
       { id: v4(), title: 'Починить машину', isDone: true },
       { id: v4(), title: 'Поспать', isDone: false },
   ])
+
+  const [filter, setFilter] = useState<FiltredValues>('all')
 
     // Добавляем новое дело
     const addTask = () => {}
