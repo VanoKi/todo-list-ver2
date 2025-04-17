@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {TodolistItem} from "./components/TodolistItem/TodolistItem.tsx";
 import './App.css'
-import { v4 } from 'uuid';
+import { v1 } from 'uuid';
 
 export type TaskType = {
   id: string
@@ -13,28 +13,57 @@ export type FiltredValues = 'all'|'active'|'completed'
 
 function App() {
   const [tasks, setTasks] = useState<TaskType[]>([
-      { id: v4(), title: 'Сходить в магазин', isDone: true },
-      { id: v4(), title: 'Починить машину', isDone: true },
-      { id: v4(), title: 'Поспать', isDone: false },
+      { id: v1(), title: 'Сходить в магазин', isDone: true },
+      { id: v1(), title: 'Починить машину', isDone: true },
+      { id: v1(), title: 'Поспать', isDone: false },
   ])
 
   const [filter, setFilter] = useState<FiltredValues>('all')
 
     // Добавляем новое дело
-    const addTask = () => {}
+    const addTask = (title: string) => {
+      const newTask = {
+        id: v1(),
+        title,
+        isDone: false
+      }
+      setTasks([newTask, ...tasks])
+    }
 
     // Удаляем дело
-    const deleteTask = () => {}
+    const deleteTask = (taskId: string) => {
+      setTasks([...tasks.filter(task => task.id !== taskId)])
+    }
 
     // Меняем статус задачи
-    const changeTaskStatus = () => {}
+    const changeTaskStatus = (taskId: string, newStatus: boolean) => {
+      setTasks(tasks.map(task => task.id === taskId ? {...task, isDone: newStatus} : task))
+    }
 
     // Меняем значение фильтра
-    const changeFilterValue = () => {}
+    const changeFilterValue = (value: FiltredValues) => {
+      setFilter(value)
+    }
+
+    let filtredTasks = tasks
+  switch (filter) {
+    case "active":
+      filtredTasks = task.filter(task => !tasks.isDone)
+      break;
+    case "completed":
+      filtredTasks = task.filter(task => tasks.isDone)
+      break;
+  }
 
   return (
     <div>
-        <TodolistItem tasks={tasks}/>
+        <TodolistItem
+          tasks={filtredTasks}
+          changeFilterValue={changeFilterValue}
+          addTask={addTask}
+          deleteTask={deleteTask}
+          changeTaskStatus={changeTaskStatus}
+        />
     </div>
   )
 }
