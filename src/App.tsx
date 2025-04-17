@@ -3,8 +3,14 @@ import {TodolistItem} from "./components/TodolistItem/TodolistItem.tsx";
 import './App.css'
 import { v4 } from 'uuid';
 
+export type TaskType = {
+  id: string
+  title: string
+  isDone: boolean
+}
+
 function App() {
-  const [tasks, setTasks] = useState([
+  const [tasks, setTasks] = useState(<TaskType>[
       { id: v4(), title: 'Сходить в магазин', isDone: true },
       { id: v4(), title: 'Починить машину', isDone: true },
       { id: v4(), title: 'Поспать', isDone: false },
@@ -24,7 +30,7 @@ function App() {
 
   return (
     <div>
-        <TodolistItem />
+        <TodolistItem tasks={tasks}/>
     </div>
   )
 }
