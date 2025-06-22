@@ -53,7 +53,7 @@ export const TodolistItem = (props: Props) => {
           }
 
           const changeTaskStatusHandler: (e: ChangeEvent<HTMLInputElement>) => {
-            changeTaskStatus(task.id, e.currentTargent)
+            changeTaskStatus(task.id, e.currentTarget.)
           }
 
           return (
