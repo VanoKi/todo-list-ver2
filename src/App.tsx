@@ -9,7 +9,7 @@ export type TaskType = {
   isDone: boolean
 }
 
-export type FiltredValues = 'all'|'active'|'completed'
+export type FilteredValues = 'all'|'active'|'completed'
 
 function App() {
   const [tasks, setTasks] = useState<TaskType[]>([
@@ -18,7 +18,7 @@ function App() {
       { id: v1(), title: 'Поспать', isDone: false },
   ])
 
-  const [filter, setFilter] = useState<FiltredValues>('all')
+  const [filter, setFilter] = useState<FilteredValues>('all')
 
     // Добавляем новое дело
     const addTask = (title: string) => {
@@ -41,17 +41,17 @@ function App() {
     }
 
     // Меняем значение фильтра
-    const changeFilterValue = (value: FiltredValues) => {
+    const changeFilterValue = (value: FilteredValues) => {
       setFilter(value)
     }
 
     let filtredTasks = tasks
   switch (filter) {
     case "active":
-      filtredTasks = task.filter(task => !tasks.isDone)
+      filtredTasks = tasks.filter(task => !task.isDone)
       break;
     case "completed":
-      filtredTasks = task.filter(task => tasks.isDone)
+      filtredTasks = tasks.filter(task => task.isDone)
       break;
   }
 
